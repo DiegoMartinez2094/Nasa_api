@@ -21,11 +21,19 @@
 </head>
 <body>
   <h1 style="text-align: center;">Información de los asteroides cercanos a la tierra</h1>
-  <label for="ordenar">Ordenar por ID:</label>
-  <select id="ordenar" onchange="ordenarPorId()">
-    <option value="ascendente">Ascendente</option>
-    <option value="descendente">Descendente</option>
+
+  <label for="ordenar">Ordenar por:</label>
+ 
+  <select id="ordenar" onchange="ordenarDatos()">
+    <option value="idAscendente">ID Ascendente</option>
+    <option value="idDescendente">ID Descendente</option>
+    <option value="velocidadAscendente">Velocidad Ascendente</option>
+    <option value="velocidadDescendente">Velocidad Descendente</option>
+    <option value="diametroMaxAscendente">Diámetro Máximo Ascendente</option>
+    <option value="diametroMaxDescendente">Diámetro Máximo Descendente</option>
   </select>
+  <br>
+  <br>
   <table> 
 <thead>
       <tr>
@@ -79,7 +87,8 @@
         console.log("Error al obtener los datos:", error);
       });
 
-      function ordenarPorId() {
+     
+      function ordenarDatos() {
       const selectElement = document.getElementById("ordenar");
       const orden = selectElement.value;
 
@@ -87,13 +96,23 @@
       const rows = Array.from(tbody.getElementsByTagName("tr"));
 
       rows.sort((a, b) => {
-        const idA = parseInt(a.cells[0].innerText);
-        const idB = parseInt(b.cells[0].innerText);
+        let valueA, valueB;
 
-        if (orden === "ascendente") {
-          return idA - idB;
+        if (orden === "idAscendente" || orden === "idDescendente") {
+          valueA = parseInt(a.cells[0].innerText);
+          valueB = parseInt(b.cells[0].innerText);
+        } else if (orden === "velocidadAscendente" || orden === "velocidadDescendente") {
+          valueA = parseFloat(a.cells[4].innerText);
+          valueB = parseFloat(b.cells[4].innerText);
+        } else if (orden === "diametroMaxAscendente" || orden === "diametroMaxDescendente") {
+          valueA = parseFloat(a.cells[3].innerText);
+          valueB = parseFloat(b.cells[3].innerText);
+        }
+
+        if (orden === "idAscendente" || orden === "velocidadAscendente" || orden === "diametroMaxAscendente") {
+          return valueA - valueB;
         } else {
-          return idB - idA;
+          return valueB - valueA;
         }
       });
 
