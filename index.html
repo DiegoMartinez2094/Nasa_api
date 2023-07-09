@@ -4,12 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Información del asteroide</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 <body>
-  <h1>Información del asteroide</h1>
-  <table>
-    
-   
+  <h1 style="text-align: center;">Información de los asteroides cercanos a la tierra</h1>
+  <label for="ordenar">Ordenar por ID:</label>
+  <select id="ordenar" onchange="ordenarPorId()">
+    <option value="ascendente">Ascendente</option>
+    <option value="descendente">Descendente</option>
+  </select>
+  <table> 
 <thead>
       <tr>
         <th scope="col">ID</th>
@@ -61,6 +78,29 @@
       .catch(error => {
         console.log("Error al obtener los datos:", error);
       });
+
+      function ordenarPorId() {
+      const selectElement = document.getElementById("ordenar");
+      const orden = selectElement.value;
+
+      const tbody = document.getElementById("tabla");
+      const rows = Array.from(tbody.getElementsByTagName("tr"));
+
+      rows.sort((a, b) => {
+        const idA = parseInt(a.cells[0].innerText);
+        const idB = parseInt(b.cells[0].innerText);
+
+        if (orden === "ascendente") {
+          return idA - idB;
+        } else {
+          return idB - idA;
+        }
+      });
+
+      rows.forEach(row => {
+        tbody.appendChild(row);
+      });
+    }
   </script>
 </body>
 </html>
