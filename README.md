@@ -10,7 +10,7 @@ Para ejecutar esta aplicación localmente, siga estos pasos:
 1. Clonar el repositorio:  abra la terminal y copie el siguiente codigo: git clone https://github.com/your-username/repository-name.git
 2. Instala las dependencias: con el comando npm install
 3. inicie el servidor con node app.js
-4. Abra su navegador web y visite `http://localhost:5000 `para ver la aplicación.
+4. Abra su navegador web y visite http://127.1.1.1:5000 para ver la aplicación.
 
 ## ¿Cómo usar la app?
 
